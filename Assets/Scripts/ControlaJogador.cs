@@ -5,24 +5,40 @@ using UnityEngine;
 
 public class NewBehaviourScript : MonoBehaviour {
     // Update is called once per frame
-    [SerializeField] private float speed = 10;
-    private Rigidbody rb;
-    private Vector3 direcao;
     
-    void Start() {
-        rb = GetComponent<Rigidbody>();
+    private static readonly int Movendo = Animator.StringToHash("Movendo");
+    private Rigidbody _rigidbody;
+    private Animator _animator;
+    private Vector3 moveDirection;
+    [SerializeField] private float velocidade = 10;
+
+    private void Start()
+    {
+        _animator = GetComponent<Animator>();
+        _rigidbody = GetComponent<Rigidbody>();
     }
-    
+
     void Update() {
-        Input.GetAxis("Horizontal");
         
-        direcao = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+        float horizontalInput = Input.GetAxis("Horizontal");
+        float verticalInput = Input.GetAxis("Vertical");
+        
+        moveDirection = Vector3.ClampMagnitude(new Vector3(horizontalInput, 0 , verticalInput), 1);
+        
+        if (moveDirection != Vector3.zero) {
+            _animator.SetBool(Movendo, true);
+        } else {
+            _animator.SetBool(Movendo, false);
+        }
     }
     
     void FixedUpdate() {
-        float verticalPreviousVelocity = rb.velocity.y;
-        Vector3 positionIncrement = direcao * speed;
+        float verticalPreviousVelocity = _rigidbody.velocity.y;
+        
+        Vector3 positionIncrement = moveDirection * velocidade;
+        
         positionIncrement.y = verticalPreviousVelocity;
-        rb.velocity = positionIncrement;
+        
+        _rigidbody.velocity = positionIncrement;
     }
 }
