@@ -17,6 +17,10 @@ public class ControlaInimigo : MonoBehaviour
     {
         _animator = GetComponent<Animator>();
         _rigidbody = GetComponent<Rigidbody>();
+        
+        Jogador = GameObject.FindWithTag("Jogador");
+        int geraTipoZumbie = UnityEngine.Random.Range(1, 28);
+        transform.GetChild(geraTipoZumbie).gameObject.SetActive(true);
     }
 
     // Update is called once per frame
