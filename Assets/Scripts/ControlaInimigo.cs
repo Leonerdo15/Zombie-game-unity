@@ -10,9 +10,12 @@ public class ControlaInimigo : MonoBehaviour
     public GameObject Jogador;
     public float Velocidade = 5;
     private Rigidbody _rigidbody;
+    private Animator _animator;
+    private static readonly int Atacando = Animator.StringToHash("Atacando");
 
     private void Start()
     {
+        _animator = GetComponent<Animator>();
         _rigidbody = GetComponent<Rigidbody>();
     }
 
@@ -27,21 +30,31 @@ public class ControlaInimigo : MonoBehaviour
         Vector3 zombiePosition = transform.position;
         Vector3 playerPosition = Jogador.transform.position;
         
+        float distancia = Vector3.Distance(zombiePosition, playerPosition);
+        
         Vector3 direcao = playerPosition - 
                           zombiePosition;
         
-        
-        
-        float distancia = Vector3.Distance(zombiePosition, playerPosition);
+        Quaternion novaRotacao = Quaternion.LookRotation(direcao);
+        _rigidbody.MoveRotation(novaRotacao);
         
         if (distancia > 2.5) {
             _rigidbody.MovePosition
             (_rigidbody.position + 
              direcao.normalized * (Velocidade * Time.deltaTime));
             
-            
-            Quaternion novaRotacao = Quaternion.LookRotation(direcao);
-            _rigidbody.MoveRotation(novaRotacao);
-        } 
+            _animator.SetBool(Atacando, false);
+        }
+        else
+        {
+            _animator.SetBool(Atacando, true);
+        }
+    }
+    
+    private void AtacaJogador()
+    {
+        Time.timeScale = 0;
+        Jogador.GetComponent<ControlaJogador>().TextoGameOver.SetActive(true);
+        Jogador.GetComponent<ControlaJogador>().Vivo = false;
     }
 }

@@ -2,8 +2,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class NewBehaviourScript : MonoBehaviour {
+public class ControlaJogador : MonoBehaviour {
     // Update is called once per frame
     
     private static readonly int Movendo = Animator.StringToHash("Movendo");
@@ -12,9 +13,12 @@ public class NewBehaviourScript : MonoBehaviour {
     private Vector3 _moveDirection;
     [SerializeField] private float velocidade = 10;
     public LayerMask MascaraChao;
+    public GameObject TextoGameOver;
+    public bool Vivo = true;
 
     private void Start()
     {
+        Time.timeScale = 1;
         _animator = GetComponent<Animator>();
         _rigidbody = GetComponent<Rigidbody>();
     }
@@ -30,6 +34,12 @@ public class NewBehaviourScript : MonoBehaviour {
             _animator.SetBool(Movendo, true);
         } else {
             _animator.SetBool(Movendo, false);
+        }
+        
+        if (Vivo == false) {
+            if (Input.GetButtonDown("Fire1")) {
+                SceneManager.LoadScene("game");
+            }
         }
     }
     

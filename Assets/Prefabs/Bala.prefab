@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 1861144953425578832}
   - component: {fileID: 7131379636306402686}
   - component: {fileID: -500823978180186086}
+  - component: {fileID: 806185687091180442}
   m_Layer: 0
   m_Name: Bala
   m_TagString: Untagged
@@ -101,7 +102,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -119,6 +120,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f14096325e138c4bbdbb13c5be66ac5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Velocidade: 20
 --- !u!54 &-500823978180186086
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -146,3 +148,16 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &806185687091180442
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3426132577086956389}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f14096325e138c4bbdbb13c5be66ac5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Velocidade: 20
